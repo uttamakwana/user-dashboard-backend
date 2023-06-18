@@ -2,16 +2,18 @@ const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("./config/dbConnection");
 const dotenv = require("dotenv").config();
+const cors = require("cors");
 
 connectDB();
 const app = express();
+app.use(cors());
 const port = process.env.port || 5000;
 
 //this middleware we use to see the data that client sends through Body of req
 app.use(express.json());
 
 app.use("/api/contacts", require("./routes/contactRoutes"));
-app.use("/api/users", require('./routes/userRoutes'));
+app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 
